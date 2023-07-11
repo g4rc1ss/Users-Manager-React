@@ -17,10 +17,12 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "npm install && npm run tsc",
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only ./app.ts",
+    "prod": "tsc && node ./build/app.js",
+    "reinstall": "npm run clean && npm install",
+    "clean": "rimraf ./node_modules ./build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +41,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.1",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "typescript": "^4.9.5"
   }
 }
