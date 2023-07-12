@@ -3,8 +3,7 @@ env:
   commonjs: true
   es2021: true
 extends:
-  - standard-with-typescript
-  - plugin:react/recommended
+  - eslint-config-codely/typescript
 parserOptions:
   ecmaVersion: latest
   project:

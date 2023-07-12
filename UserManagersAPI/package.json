@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install && npm run tsc",
-    "tsc": "tsc",
+    "build": "tsc",
+    "build:bun": "bun build ./app/app.ts --outdir ./out",
     "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
-    "prod": "tsc && node ./out/app.js",
-    "reinstall": "npm run clean && npm install",
+		"dev:bun": "bun ./app/app.ts",
+    "pro": "npm run build && node ./out/app.js",
+    "pro:bun": "bun run build:bun && bun ./out/app.js",
+    "reinstall": "bun run clean && bun install",
     "clean": "rimraf ./node_modules ./out"
   },
   "keywords": [],
