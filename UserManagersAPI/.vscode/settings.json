@@ -2,7 +2,5 @@
     "editor.detectIndentation": false,
     "editor.tabSize": 2,
     "editor.indentSize": "tabSize",
-"[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-}
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": true
 }
