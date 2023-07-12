@@ -17,12 +17,14 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "build": "npm install && npm run tsc",
-    "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only ./app.ts",
-    "prod": "tsc && node ./build/app.js",
-    "reinstall": "npm run clean && npm install",
-    "clean": "rimraf ./node_modules ./build"
+    "build": "tsc",
+    "build:bun": "bun run react-scripts build",
+    "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
+		"dev:bun": "bun run react-scripts start",
+    "pro": "npm run build && node ./out/app.js",
+    "pro:bun": "bun run build:bun && bun ./out/app.js",
+    "reinstall": "bun run clean && bun install",
+    "clean": "rimraf ./node_modules ./out"
   },
   "eslintConfig": {
     "extends": [
