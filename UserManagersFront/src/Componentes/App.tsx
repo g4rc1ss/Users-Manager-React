@@ -9,7 +9,6 @@ import NavBarComponent from "./NavBar/NavBarComponent";
 import RegistroEntradaSalidaComponent from './RegistroEntradaSalida/RegistrarEntradaSalidaComponent';
 import ListaUsuariosComponent from './ListaUsuarios/ListaUsuariosComponent';
 import AñadirUsuarios from './AñadirUsuarios/AñadirUsuarios';
-import EditarUsuariosModal from "./EditarUsuarios/EditarUsuariosModal";
 
 function App() {
     return (
