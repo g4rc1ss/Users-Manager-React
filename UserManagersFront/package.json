@@ -1,54 +1,30 @@
 {
-  "name": "proyecto",
-  "version": "0.1.0",
-  "private": true,
+  "name": "pruebaReact",
+  "version": "0.1.95",
   "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@testing-library/jest-dom": "^5.15.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "bootstrap": "^5.1.3",
-    "react": "^17.0.2",
-    "react-bootstrap": "^2.0.3",
-    "react-bootstrap-icons": "^1.6.1",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
-  },
-  "scripts": {
-    "build": "tsc",
-    "build:bun": "bun run react-scripts build",
-    "dev": "ts-node-dev --respawn --transpile-only ./app/app.ts",
-		"dev:bun": "bun run react-scripts start",
-    "pro": "npm run build && node ./out/app.js",
-    "pro:bun": "bun run build:bun && bun ./out/app.js",
-    "reinstall": "bun run clean && bun install",
-    "clean": "rimraf ./node_modules ./out"
+    "bootstrap": "^5.3.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.8.0",
+    "react-bootstrap-icons": "^1.10.3",
+    "react-dom": "^18.2.0",
+    "web-vitals": "^3.0.3"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "react-app"
     ]
   },
   "devDependencies": {
-    "@types/jest": "^29.5.3",
-    "@types/node": "^20.4.1",
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
-    "typescript": "^4.9.5"
-  }
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@types/web": "^0.0.99",
+    "bun-types": "canary",
+    "typescript": "latest",
+    "react-refresh": "0.10.0"
+  },
+  "scripts": {
+    "dev": "bun --watch run dev.tsx"
+  },
+  "module": "index.ts",
+  "type": "module"
 }
