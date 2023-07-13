@@ -2,10 +2,12 @@ export interface IUserCommandRequest extends IUserRequest {
 	Nombre: string;
 	Apellido: string;
 	DNI: string;
-	FechaUltimaEntrada: Date;
-	FechaUltimaSalida: Date;
+}
+
+export interface IUserEntryRequest extends IUserRequest {
 	EstaEnOficina: boolean;
 }
+
 
 export interface IUserRequest{
 	Id: string;

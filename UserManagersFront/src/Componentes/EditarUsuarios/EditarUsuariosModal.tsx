@@ -1,9 +1,10 @@
-import { SetStateAction, useState } from 'react'
+import { ChangeEvent, SetStateAction, useState } from 'react'
 import { useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { IUserResponse } from '../../Models/UserResponse';
 
 import './EditarUsuariosComponent.css'
+import { IUserCommandRequest } from '../../Models/UserRequest';
 
 
 function EditarUsuariosModal(props: { showModal: any; onCloseModal: () => void; idUsuario: string; }) {
@@ -18,13 +19,13 @@ function EditarUsuariosModal(props: { showModal: any; onCloseModal: () => void; 
         props.onCloseModal();
     }
 
-    function cambiarNombre(event: { target: { value: SetStateAction<string>; }; }) {
+    function cambiarNombre(event: ChangeEvent<HTMLInputElement>) {
         setNombre(event.target.value)
     }
-    function cambiarApellido(event: { target: { value: SetStateAction<string>; }; }) {
+    function cambiarApellido(event: ChangeEvent<HTMLInputElement>) {
         setApellido(event.target.value)
     }
-    function cambiarDni(event: { target: { value: SetStateAction<string>; }; }) {
+    function cambiarDni(event: ChangeEvent<HTMLInputElement>) {
         setDni(event.target.value)
     }
 
@@ -75,20 +76,29 @@ function EditarUsuariosModal(props: { showModal: any; onCloseModal: () => void; 
     );
 
     async function saveChanges(idUsuario: any, nombre: string, apellido: string, dni: string) {
+        var data: IUserCommandRequest = {
+            Id: idUsuario,
+            Nombre: nombre,
+            Apellido: apellido,
+            DNI: dni,
+        };
         let response = await fetch(`http://localhost:55434/actualizarUsuario`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ Id: idUsuario, Nombre: nombre, Apellido: apellido, DNI: dni })
+            body: JSON.stringify(data)
         })
         handleClose();
     }
 
     async function obtenerDatosUsuario(idUsuario: string) : Promise<IUserResponse> {
-        let response = await fetch(`http://localhost:55434/listaUsuarios?id=${idUsuario}`);
-        let respuesta = await response.json();
-        return respuesta as IUserResponse;
+        let response = await fetch(`http://localhost:55434/usuario?id=${idUsuario}`)
+        .then(response => response.json())
+        .then(respuesta => respuesta);
+      let user = await (response) as IUserResponse[];
+      console.log(user);
+      return user[0];
     }
 
 

@@ -5,5 +5,5 @@ export interface IUserRequest {
 	DNI: string;
 	FechaUltimaEntrada: Date;
 	FechaUltimaSalida: Date;
-	EstaEnOficina: boolean;
+	EstaEnOficina?: boolean;
 }

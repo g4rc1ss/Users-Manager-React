@@ -1,6 +1,6 @@
 import cors from "cors";
 import express, { type NextFunction, type Request, type Response } from "express";
-import mongoose from "mongoose";
+import mongoose, { FilterQuery } from "mongoose";
 
 import { User } from "./Consts";
 import { type IUserEntity } from "./IUserEntity";
@@ -17,19 +17,41 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.get("/listaUsuarios", (request: Request, response: Response) => {
+	const users = async () => {
+		const userResponse = await User.find();
+		response.json(userResponse);
+	};
+
+	users().catch((error) => {
+		if (error instanceof Error) {
+			console.error(error);
+			response.send({ mensaje: `Error: ${error.message}` });
+		}
+	});
+});
+
+app.get("/usuario", (request: Request, response: Response) => {
 	const dniUsuario = request.query.DNI;
 	const idUsuario = request.query.id?.toString();
 
-	const datoBusqueda = {
-		DNI: dniUsuario ?? null,
-		_id: idUsuario ?? null,
+	const datoBusqueda: FilterQuery<IUserEntity> = {
+		$or: [{ _id: idUsuario }, { DNI: dniUsuario }],
 	};
 
-	const users = User.find(datoBusqueda).then((result) => result);
-	response.json(users);
+	const users = async () => {
+		const userResponse = await User.find(datoBusqueda);
+		response.json(userResponse);
+	};
+
+	users().catch((error) => {
+		if (error instanceof Error) {
+			console.error(error);
+			response.send({ mensaje: `Error: ${error.message}` });
+		}
+	});
 });
 
-app.post("/crearUsuario", async (request, response) => {
+app.post("/crearUsuario", (request, response) => {
 	const nuevoUsuario = request.body as IUserRequest;
 	const newUser: IUserEntity = new User({
 		Nombre: nuevoUsuario.Nombre,
@@ -39,48 +61,59 @@ app.post("/crearUsuario", async (request, response) => {
 		FechaUltimaSalida: nuevoUsuario.FechaUltimaSalida,
 	});
 
-	try {
-		const saved = await newUser.save().then((result) => result);
-		response.json(saved);
-	} catch (error) {
+	const saved = async () => {
+		const userResponseSave = await newUser.save();
+		response.json(userResponseSave);
+	};
+
+	saved().catch((error) => {
 		if (error instanceof Error) {
 			console.error(error);
 			response.send({ mensaje: `Error: ${error.message}` });
 		}
-	}
+	});
 });
 
 app.put("/actualizarUsuario", (request, response) => {
 	const datosRequest = request.body as IUserRequest;
-	const datosUpdate: IUserEntity = new User({
-		Nombre: datosRequest.Nombre,
-		Apellido: datosRequest.Apellido,
-		DNI: datosRequest.DNI,
-		FechaUltimaEntrada: datosRequest.FechaUltimaEntrada,
-		FechaUltimaSalida: datosRequest.FechaUltimaSalida,
-	});
 
-	if (datosUpdate.Nombre === "") {
+	if (datosRequest.DNI === "") {
 		response.send("No hay id de usuario");
 	}
 
-	if (datosUpdate.EstaEnOficina) {
-		datosUpdate.FechaUltimaEntrada = new Date();
-	} else {
-		datosUpdate.FechaUltimaSalida = new Date();
+	if (datosRequest.EstaEnOficina) {
+		datosRequest.FechaUltimaEntrada = new Date();
+	} else if (datosRequest.EstaEnOficina !== undefined) {
+		datosRequest.FechaUltimaSalida = new Date();
 	}
 
-	const updated = User.findByIdAndUpdate(datosRequest.Id, datosUpdate, { new: true }).then(
-		(result) => result
-	);
-	response.json(updated);
+	const updated = async () => {
+		const userUpdated = await User.findByIdAndUpdate(datosRequest.Id, datosRequest, { new: true });
+		response.json(userUpdated);
+	};
+
+	updated().catch((error) => {
+		if (error instanceof Error) {
+			console.error(error);
+			response.send({ mensaje: `Error: ${error.message}` });
+		}
+	});
 });
 
 app.delete("/borrarUsuario", (request, response) => {
 	const datosRequest = request.body as IUserRequest;
 
-	const deleted = User.findByIdAndRemove(datosRequest.Id).then((result) => result);
-	response.json(deleted);
+	const deleted = async () => {
+		const userResponseSave = await User.findByIdAndRemove(datosRequest.Id);
+		response.json(userResponseSave);
+	};
+
+	deleted().catch((error) => {
+		if (error instanceof Error) {
+			console.error(error);
+			response.send({ mensaje: `Error: ${error.message}` });
+		}
+	});
 });
 
 // conexion Base de Datos

@@ -1,12 +1,13 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useReducer, useState } from 'react'
 import './RegistrarEntradaSalidaComponent.css';
 import { IUserResponse } from '../../Models/UserResponse';
+import { IUserCommandRequest, IUserEntryRequest, IUserRequest } from '../../Models/UserRequest';
 
 function RegistroEntradaSalidaComponent() {
   const [dni, setdni] = useState("")
 
-  function cambiarDni(event: ChangeEvent) {
-    setdni(event.target.nodeValue as string)
+  function cambiarDni(event: ChangeEvent<HTMLInputElement>) {
+    setdni(event.target.value)
   }
 
   return (
@@ -35,20 +36,26 @@ function RegistroEntradaSalidaComponent() {
     }
   }
 
-  async function obtenerIdUsuario(dni: string) {
-    let response = await fetch(`http://localhost:55434/listaUsuarios?DNI=${dni}`);
-    let respuesta = await (response.json()) as IUserResponse;
-    console.log(respuesta._id)
-    return respuesta._id
+  async function obtenerIdUsuario(dni: string): Promise<string> {
+    let response = await fetch(`http://localhost:55434/usuario?DNI=${dni}`)
+      .then(response => response.json())
+      .then(respuesta => respuesta);
+    let user = await (response) as IUserResponse[];
+    console.log(user);
+    return user[0]._id
   }
 
   async function updateEntrada(idUsuario: string, esEntrada: boolean) {
+    const dataToSend : IUserEntryRequest = {
+      Id: idUsuario,
+      EstaEnOficina: esEntrada
+    }
     let response = await fetch(`http://localhost:55434/actualizarUsuario`, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ Id: idUsuario, estaEnOficina: esEntrada })
+      body: JSON.stringify(dataToSend)
     })
     let respuesta = await response.json();
     console.log(respuesta)
