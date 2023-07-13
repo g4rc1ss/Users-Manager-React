@@ -3,5 +3,5 @@
     "editor.insertSpaces": false,
     "editor.tabSize": 2,
     "editor.indentSize": "tabSize",
-    "typescript.format.insertSpaceBeforeFunctionParenthesis": true
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
 }
