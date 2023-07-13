@@ -29,7 +29,7 @@ app.get("/listaUsuarios", (request: Request, response: Response) => {
 	response.json(users);
 });
 
-app.post("/crearUsuario", (request, response) => {
+app.post("/crearUsuario", async (request, response) => {
 	const nuevoUsuario = request.body as IUserRequest;
 	const newUser: IUserEntity = new User({
 		Nombre: nuevoUsuario.Nombre,
@@ -40,7 +40,7 @@ app.post("/crearUsuario", (request, response) => {
 	});
 
 	try {
-		const saved = newUser.save().then((result) => result);
+		const saved = await newUser.save().then((result) => result);
 		response.json(saved);
 	} catch (error) {
 		if (error instanceof Error) {

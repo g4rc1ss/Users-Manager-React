@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import './EditarUsuariosComponent.css';
+import { SetStateAction, useState } from 'react'
 import { useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { IUserResponse } from '../../Models/UserResponse';
+
+import './EditarUsuariosComponent.css'
 
 
-function EditarUsuariosModal(props) {
+function EditarUsuariosModal(props: { showModal: any; onCloseModal: () => void; idUsuario: string; }) {
     const [nombre, setNombre] = useState("");
     const [apellido, setApellido] = useState("");
     const [dni, setDni] = useState("");
@@ -16,13 +18,13 @@ function EditarUsuariosModal(props) {
         props.onCloseModal();
     }
 
-    function cambiarNombre(event) {
+    function cambiarNombre(event: { target: { value: SetStateAction<string>; }; }) {
         setNombre(event.target.value)
     }
-    function cambiarApellido(event) {
+    function cambiarApellido(event: { target: { value: SetStateAction<string>; }; }) {
         setApellido(event.target.value)
     }
-    function cambiarDni(event) {
+    function cambiarDni(event: { target: { value: SetStateAction<string>; }; }) {
         setDni(event.target.value)
     }
 
@@ -44,19 +46,19 @@ function EditarUsuariosModal(props) {
                     <Modal.Title>Editar Usuario</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div class="text-cente">
+                    <div className="text-cente">
 
-                        <div class="col-md-12">
-                            <label class="col-md-2">Nombre: </label>
-                            <input class="col-md-8" type="text" value={nombre} onChange={cambiarNombre} />
+                        <div className="col-md-12">
+                            <label className="col-md-2">Nombre: </label>
+                            <input className="col-md-8" type="text" value={nombre} onChange={cambiarNombre} />
                         </div>
-                        <div class="col-md-12">
-                            <label class="col-md-2">Apellido: </label>
-                            <input class="col-md-8" type="text" value={apellido} onChange={cambiarApellido} />
+                        <div className="col-md-12">
+                            <label className="col-md-2">Apellido: </label>
+                            <input className="col-md-8" type="text" value={apellido} onChange={cambiarApellido} />
                         </div>
-                        <div class="col-md-12">
-                            <label class="col-md-2">DNI: </label>
-                            <input class="col-md-8" type="text" value={dni} onChange={cambiarDni} />
+                        <div className="col-md-12">
+                            <label className="col-md-2">DNI: </label>
+                            <input className="col-md-8" type="text" value={dni} onChange={cambiarDni} />
                         </div>
                     </div>
                 </Modal.Body>
@@ -72,7 +74,7 @@ function EditarUsuariosModal(props) {
         </>
     );
 
-    async function saveChanges(idUsuario, nombre, apellido, dni) {
+    async function saveChanges(idUsuario: any, nombre: string, apellido: string, dni: string) {
         let response = await fetch(`http://localhost:55434/actualizarUsuario`, {
             method: 'PUT',
             headers: {
@@ -83,10 +85,10 @@ function EditarUsuariosModal(props) {
         handleClose();
     }
 
-    async function obtenerDatosUsuario(idUsuario) {
+    async function obtenerDatosUsuario(idUsuario: string) : Promise<IUserResponse> {
         let response = await fetch(`http://localhost:55434/listaUsuarios?id=${idUsuario}`);
         let respuesta = await response.json();
-        return respuesta[0];
+        return respuesta as IUserResponse;
     }
 
 

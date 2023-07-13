@@ -1,6 +1,5 @@
 import * as path from "path";
 import { statSync } from "fs";
-import type { ServeOptions } from "bun";
 
 const PROJECT_ROOT = import.meta.dir;
 const PUBLIC_DIR = path.resolve(PROJECT_ROOT, "public");
@@ -9,6 +8,8 @@ const BUILD_DIR = path.resolve(PROJECT_ROOT, "build");
 await Bun.build({
   entrypoints: ["./src/index.tsx"],
   outdir: "./build",
+  naming: '[dir]/[name].[ext]',
+  target: "browser",
 });
 
 function serveFromDir(config: {
@@ -25,7 +26,7 @@ function serveFromDir(config: {
       if (stat && stat.isFile()) {
         return new Response(Bun.file(pathWithSuffix));
       }
-    } catch (err) {}
+    } catch (err) { }
   }
 
   return null;

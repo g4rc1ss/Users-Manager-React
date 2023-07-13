@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Navigate } from 'react-router-dom'
-import './ListaUsuariosComponent.css';
+import './ListaUsuariosComponent.css'
 
 import EditarUsuariosModal from '../EditarUsuarios/EditarUsuariosModal';
 
 // https://icons.getbootstrap.com/
 import * as Icon from 'react-bootstrap-icons';
 import { IUserResponse } from '../../Models/UserResponse';
-import { IUserCommandRequest, IUserRequest } from '../../Models/UserRequest';
+import { IUserRequest } from '../../Models/UserRequest';
 
 
 function ListaUsuariosComponent() {
@@ -91,7 +90,7 @@ function ListaUsuariosComponent() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(userRequest);
+            body: JSON.stringify(userRequest)
         }).then(response => response.json())
             .then(respuesta => respuesta);
 

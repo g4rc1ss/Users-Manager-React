@@ -1,4 +1,4 @@
-import { ChangeEvent, HtmlHTMLAttributes, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import './RegistrarEntradaSalidaComponent.css';
 import { IUserResponse } from '../../Models/UserResponse';
 
