@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 import { User } from "./Consts";
 import { type IUserEntity } from "./IUserEntity";
-import { UserRequest } from "./UserRequest";
+import { IUserRequest } from "./IUserRequest";
 
 const app = express();
 app.listen(55434);
@@ -30,7 +30,7 @@ app.get("/listaUsuarios", (request: Request, response: Response) => {
 });
 
 app.post("/crearUsuario", (request, response) => {
-	const nuevoUsuario = request.body as UserRequest;
+	const nuevoUsuario = request.body as IUserRequest;
 	const newUser: IUserEntity = new User({
 		Nombre: nuevoUsuario.Nombre,
 		Apellido: nuevoUsuario.Apellido,
@@ -51,7 +51,7 @@ app.post("/crearUsuario", (request, response) => {
 });
 
 app.put("/actualizarUsuario", (request, response) => {
-	const datosRequest = request.body as UserRequest;
+	const datosRequest = request.body as IUserRequest;
 	const datosUpdate: IUserEntity = new User({
 		Nombre: datosRequest.Nombre,
 		Apellido: datosRequest.Apellido,
@@ -77,7 +77,7 @@ app.put("/actualizarUsuario", (request, response) => {
 });
 
 app.delete("/borrarUsuario", (request, response) => {
-	const datosRequest = request.body as UserRequest;
+	const datosRequest = request.body as IUserRequest;
 
 	const deleted = User.findByIdAndRemove(datosRequest.Id).then((result) => result);
 	response.json(deleted);

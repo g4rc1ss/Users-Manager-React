@@ -1,25 +1,26 @@
-import { useState } from 'react'
+import { ChangeEvent, HtmlHTMLAttributes, useState } from 'react'
 import './RegistrarEntradaSalidaComponent.css';
+import { IUserResponse } from '../../Models/UserResponse';
 
 function RegistroEntradaSalidaComponent() {
   const [dni, setdni] = useState("")
 
-  function cambiarDni(event) {
-    setdni(event.target.value)
+  function cambiarDni(event: ChangeEvent) {
+    setdni(event.target.nodeValue as string)
   }
 
   return (
-    <div class="container container2" className="App">
-      <p class="Intro"> Inserte su DNI para continuar:</p>
+    <div className="container container2 App">
+      <p className="Intro"> Inserte su DNI para continuar:</p>
       <label >DNI</label>
-      <input class="col-md-1" type="text" value={dni} onChange={cambiarDni} />
-      <button class="btn btn-success" onClick={() => registrarEntrada(dni)} >Entrada</button>
-      <button class="btn btn-danger" onClick={() => registrarSalida(dni)} >Salida</button>
+      <input className="col-md-1" type="text" value={dni} onChange={cambiarDni} />
+      <button className="btn btn-success" onClick={() => registrarEntrada(dni)} >Entrada</button>
+      <button className="btn btn-danger" onClick={() => registrarSalida(dni)} >Salida</button>
     </div>
   );
 
 
-  async function registrarEntrada(dni) {
+  async function registrarEntrada(dni: string) {
     let id = await obtenerIdUsuario(dni)
     if (id !== undefined) {
       await updateEntrada(id, true);
@@ -27,21 +28,21 @@ function RegistroEntradaSalidaComponent() {
 
   }
 
-  async function registrarSalida(dni) {
+  async function registrarSalida(dni: string) {
     let id = await obtenerIdUsuario(dni);
     if (id !== undefined) {
       await updateEntrada(id, false);
     }
   }
 
-  async function obtenerIdUsuario(dni) {
+  async function obtenerIdUsuario(dni: string) {
     let response = await fetch(`http://localhost:55434/listaUsuarios?DNI=${dni}`);
-    let respuesta = await response.json();
-    console.log(respuesta[0]._id)
-    return respuesta[0]._id
+    let respuesta = await (response.json()) as IUserResponse;
+    console.log(respuesta._id)
+    return respuesta._id
   }
 
-  async function updateEntrada(idUsuario, esEntrada) {
+  async function updateEntrada(idUsuario: string, esEntrada: boolean) {
     let response = await fetch(`http://localhost:55434/actualizarUsuario`, {
       method: 'PUT',
       headers: {

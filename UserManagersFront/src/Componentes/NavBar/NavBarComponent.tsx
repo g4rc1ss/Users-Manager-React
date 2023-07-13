@@ -2,23 +2,22 @@ import './NavBarComponent.css';
 import { Link } from 'react-router-dom';
 
 function NavBarComponent() {
-
   return (
-    <nav class="navbar navbar-center navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
+    <nav className="navbar navbar-center navbar-expand-lg navbar-light bg-light">
+      <div className="container-fluid">
         <Link to="/" className="navbar-brand">PROYECTO3</Link>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
               <Link to="/" className="nav-link active">Inicio</Link>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <Link to="/crearUsuarios" className="nav-link">Añadir</Link>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <Link to="/listaUsuarios" className="nav-link">Lista Trabajadores</Link>
             </li>
           </ul>

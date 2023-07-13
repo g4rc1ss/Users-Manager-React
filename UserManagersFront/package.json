@@ -7,6 +7,7 @@
     "react-bootstrap": "^2.8.0",
     "react-bootstrap-icons": "^1.10.3",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.1",
     "web-vitals": "^3.0.3"
   },
   "eslintConfig": {
@@ -16,7 +17,9 @@
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
+    "@types/react-bootstrap": "^0.32.32",
     "@types/react-dom": "^18.0.11",
+    "@types/react-router-dom": "^5.3.3",
     "@types/web": "^0.0.99",
     "bun-types": "canary",
     "react-refresh": "0.10.0",
