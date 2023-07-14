@@ -4,8 +4,6 @@
 name: CI User managers API
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -26,6 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        working-directory: ./UserManagersAPI
     - name: Install and build app
       working-directory: ./UserManagersAPI
       run: | 
