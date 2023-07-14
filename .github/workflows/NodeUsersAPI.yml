@@ -11,6 +11,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./UserManagersAPI/
 
     strategy:
       matrix:
@@ -24,9 +27,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        working-directory: ./UserManagersAPI
     - name: Install and build app
-      working-directory: ./UserManagersAPI
       run: | 
         npm ci
         npm run build
