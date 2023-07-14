@@ -13,12 +13,14 @@ function ListaUsuariosComponent() {
 	const [refresh, setRefresh] = useState({});
 	const [datosModal, setDatosModal] = useState({ id: "", show: false });
 
-	useEffect(async () => {
+	useEffect(() => {
 		async function fetchData() {
 			const listaUsuarios = await getListaUsuarios();
 			setUsuario(listaUsuarios);
 		}
-		await fetchData();
+		fetchData().catch((error) => {
+			console.error(error);
+		});
 	}, [refresh]);
 
 	return (
@@ -69,7 +71,14 @@ function ListaUsuariosComponent() {
 									<button onClick={() => editarUsuario(usuario._id)} className="btn btn-primary">
 										<Icon.PencilFill />
 									</button>
-									<button onClick={() => borrarUsuario(usuario._id)} className="btn btn-danger">
+									<button
+										onClick={() => {
+											borrarUsuario(usuario._id).catch((error) => {
+												console.error(error);
+											});
+										}}
+										className="btn btn-danger"
+									>
 										<Icon.Trash />
 									</button>
 								</td>
@@ -94,9 +103,9 @@ function ListaUsuariosComponent() {
 	);
 
 	async function getListaUsuarios(): Promise<IUserResponse[]> {
-		const response = fetch(`http://localhost:55434/listaUsuarios`)
-			.then((response) => response.json())
-			.then((respuesta) => respuesta);
+		const response = fetch(`http://localhost:55434/listaUsuarios`).then((response) =>
+			response.json()
+		);
 
 		return (await response) as IUserResponse[];
 	}
@@ -109,9 +118,7 @@ function ListaUsuariosComponent() {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(userRequest),
-		})
-			.then((response) => response.json())
-			.then((respuesta) => respuesta);
+		});
 
 		// Insertamos en el usuario para ejecutar el UseEffect y que se actualice la tabla
 		setUsuario(usuario);

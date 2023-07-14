@@ -17,10 +17,24 @@ function RegistroEntradaSalidaComponent() {
 			<p className="Intro"> Inserte su DNI para continuar:</p>
 			<label>DNI</label>
 			<input className="col-md-1" type="text" value={dni} onChange={cambiarDni} />
-			<button className="btn btn-success" onClick={() => registrarEntrada(dni)}>
+			<button
+				className="btn btn-success"
+				onClick={() => {
+					registrarEntrada(dni).catch((error) => {
+						console.error(error);
+					});
+				}}
+			>
 				Entrada
 			</button>
-			<button className="btn btn-danger" onClick={() => registrarSalida(dni)}>
+			<button
+				className="btn btn-danger"
+				onClick={() => {
+					registrarSalida(dni).catch((error) => {
+						console.error(error);
+					});
+				}}
+			>
 				Salida
 			</button>
 		</div>
@@ -28,24 +42,21 @@ function RegistroEntradaSalidaComponent() {
 
 	async function registrarEntrada(dni: string) {
 		const id = await obtenerIdUsuario(dni);
-		if (id !== undefined) {
+		if (id !== "") {
 			await updateEntrada(id, true);
 		}
 	}
 
 	async function registrarSalida(dni: string) {
 		const id = await obtenerIdUsuario(dni);
-		if (id !== undefined) {
+		if (id !== "") {
 			await updateEntrada(id, false);
 		}
 	}
 
 	async function obtenerIdUsuario(dni: string): Promise<string> {
-		const response = await fetch(`http://localhost:55434/usuario?DNI=${dni}`)
-			.then((response) => response.json())
-			.then((respuesta) => respuesta);
-		const user = (await response) as IUserResponse[];
-		console.log(user);
+		const response = await fetch(`http://localhost:55434/usuario?DNI=${dni}`);
+		const user = (await response.json()) as IUserResponse[];
 
 		return user[0]._id;
 	}
@@ -62,8 +73,7 @@ function RegistroEntradaSalidaComponent() {
 			},
 			body: JSON.stringify(dataToSend),
 		});
-		const respuesta = await response.json();
-		console.log(respuesta);
+		const respuesta = (await response.json()) as IUserResponse;
 
 		return respuesta;
 	}

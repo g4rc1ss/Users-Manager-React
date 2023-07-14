@@ -37,7 +37,12 @@ function AñadirUsuarios() {
 
 			<button
 				className="btn btn-success"
-				onClick={() => añadirUsuarioFetch(nombre, apellidos, dni)}
+				onClick={() => {
+					const user = async () => await añadirUsuarioFetch(nombre, apellidos, dni);
+					user().catch((error) => {
+						console.error(error);
+					});
+				}}
 			>
 				Añadir
 			</button>
@@ -48,7 +53,7 @@ function AñadirUsuarios() {
 		nombreUsuario: string,
 		apellidoUsuario: string,
 		dniUsuario: string
-	) {
+	): Promise<void> {
 		const response = await fetch(`http://localhost:55434/crearUsuario`, {
 			method: "POST",
 			headers: {

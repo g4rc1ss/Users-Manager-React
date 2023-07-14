@@ -1,7 +1,19 @@
 {
-    "editor.detectIndentation": false,
-    "editor.insertSpaces": false,
-    "editor.tabSize": 2,
-    "editor.indentSize": "tabSize",
-    "typescript.format.insertSpaceBeforeFunctionParenthesis": true
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"editor.indentSize": "tabSize",
+	"eslint.format.enable": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	}
 }

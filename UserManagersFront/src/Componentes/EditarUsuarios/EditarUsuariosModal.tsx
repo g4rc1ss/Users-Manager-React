@@ -7,7 +7,7 @@ import { IUserCommandRequest } from "../../Models/UserRequest";
 import { IUserResponse } from "../../Models/UserResponse";
 
 function EditarUsuariosModal(props: {
-	showModal: any;
+	showModal: boolean;
 	onCloseModal: () => void;
 	idUsuario: string;
 }) {
@@ -39,7 +39,9 @@ function EditarUsuariosModal(props: {
 			setApellido(datosUsuario.Apellido);
 			setDni(datosUsuario.DNI);
 		}
-		fetchData();
+		fetchData().catch((error) => {
+			console.error(error);
+		});
 	}, []);
 
 	return (
@@ -70,7 +72,13 @@ function EditarUsuariosModal(props: {
 					</Button>
 					<Button
 						variant="primary"
-						onClick={() => saveChanges(props.idUsuario, nombre, apellido, dni)}
+						onClick={() => {
+							const save = async () => await saveChanges(props.idUsuario, nombre, apellido, dni);
+
+							save().catch((error) => {
+								console.error(error);
+							});
+						}}
 					>
 						Save Changes
 					</Button>
@@ -79,7 +87,12 @@ function EditarUsuariosModal(props: {
 		</>
 	);
 
-	async function saveChanges(idUsuario: string, nombre: string, apellido: string, dni: string) {
+	async function saveChanges(
+		idUsuario: string,
+		nombre: string,
+		apellido: string,
+		dni: string
+	): Promise<void> {
 		const data: IUserCommandRequest = {
 			Id: idUsuario,
 			Nombre: nombre,
@@ -97,11 +110,8 @@ function EditarUsuariosModal(props: {
 	}
 
 	async function obtenerDatosUsuario(idUsuario: string): Promise<IUserResponse> {
-		const response = await fetch(`http://localhost:55434/usuario?id=${idUsuario}`)
-			.then((response) => response.json())
-			.then((respuesta) => respuesta);
-		const user = (await response) as IUserResponse[];
-		console.log(user);
+		const response = await fetch(`http://localhost:55434/usuario?id=${idUsuario}`);
+		const user = (await response.json()) as IUserResponse[];
 
 		return user[0];
 	}
