@@ -1,0 +1,13 @@
+env:
+  browser: true
+  commonjs: true
+  es2021: true
+extends:
+  - eslint-config-codely/typescript
+parserOptions:
+  ecmaVersion: latest
+  project:
+    - tsconfig.json
+plugins:
+  - react
+rules: {}
