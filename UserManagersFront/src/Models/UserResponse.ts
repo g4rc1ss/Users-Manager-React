@@ -3,7 +3,7 @@ export interface IUserResponse {
 	Nombre: string;
 	Apellido: string;
 	DNI: string;
-	FechaUltimaEntrada: Date;
-	FechaUltimaSalida: Date;
+	FechaUltimaEntrada: string;
+	FechaUltimaSalida: string;
 	EstaEnOficina: boolean;
 }
