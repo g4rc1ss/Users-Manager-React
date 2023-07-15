@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  usermanager-react:
+    container_name: usermanager-react
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - '80:80'
