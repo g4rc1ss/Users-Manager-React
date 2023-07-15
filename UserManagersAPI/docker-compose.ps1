@@ -29,7 +29,6 @@ if ($manualEnvPath -ne "") {
 $commadDockerComposeToExecute += "--env-file " + $enviromentFile
 
 if ($environment -eq "local") {
-    # $commadDockerComposeToExecute += "-f $dockerComposeGrafanaCommand "
 }
 elseif ($environment -eq "pro" -or $environment -eq "pre" -or $environment -eq "dev") {
     if ($action -eq "up") {
