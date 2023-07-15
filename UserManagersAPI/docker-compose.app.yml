@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  nodeapp:
+    build:
+      context: .
+      dockerfile: dockerfile
+    environment:
+      - AppName=${AppName_SKELETON}
+      - MONGO_URL_DATABASE_CONNECTION_STRING=${MONGO_URL_DATABASE_CONNECTION_STRING_SKELETON}
+      - PORT=${HTTP_PORT_SKELETON}
+    ports:
+      - "${HTTP_PORT_SKELETON}:80"
+    depends_on:
+      - mongodb-apuntesnode
