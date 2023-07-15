@@ -1,10 +1,16 @@
 version: '3.8'
 
+networks:
+  telemetryNetwork:
+    driver: bridge
+
 services:
   mongodb-apuntesnode:
     container_name: mongodb_apuntesnode
     image: mongo
     restart: always
+    networks:
+      - telemetryNetwork
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME_SKELETON}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD_SKELETON}

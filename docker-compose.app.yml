@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  nodeapp:
+    container_name: usermanager-API
+    build:
+      context: ./UserManagersAPI
+      dockerfile: dockerfile
+    networks:
+      - telemetryNetwork
+    environment:
+      - AppName=${AppName_SKELETON}
+      - MONGO_URL_DATABASE_CONNECTION_STRING=${MONGO_URL_DATABASE_CONNECTION_STRING_SKELETON}
+      - PORT=${HTTP_PORT_SKELETON}
+    ports:
+      - "${HTTP_PORT_SKELETON}:55434"
+    depends_on:
+      - mongodb-apuntesnode
+  
+  usermanager-react:
+    container_name: usermanager-react
+    networks:
+      - telemetryNetwork
+    build:
+      context: ./UserManagersFront
+      dockerfile: dockerfile
+    ports:
+      - '80:80'
