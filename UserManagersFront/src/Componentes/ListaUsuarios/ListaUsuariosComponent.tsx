@@ -58,8 +58,8 @@ function ListaUsuariosComponent() {
 								</th>
 								<td className="text-center">{usuario.Nombre}</td>
 								<td className="text-center">{usuario.Apellido}</td>
-								<td className="text-center">{usuario.FechaUltimaEntrada.toString()}</td>
-								<td className="text-center">{usuario.FechaUltimaSalida.toString()}</td>
+								<td className="text-center">{usuario.FechaUltimaEntrada?.toString()}</td>
+								<td className="text-center">{usuario.FechaUltimaSalida?.toString()}</td>
 								<td className="text-center">
 									{usuario.EstaEnOficina ? (
 										<Icon.CheckCircle color="green" />
