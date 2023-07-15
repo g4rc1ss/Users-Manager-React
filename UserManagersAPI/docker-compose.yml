@@ -1,11 +1,21 @@
 version: '3.8'
 
 services:
-  mongodb_apuntesnode:
+  mongodb-apuntesnode:
     container_name: mongodb_apuntesnode
     image: mongo
     restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME_SKELETON}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD_SKELETON}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE_SKELETON}
     ports:
-      - 27017-27019:27017-27019
+      - 27017:27017
+      - 27019:27019
     volumes:
       - .docker/bbdd/initMongoDB.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongo_data:/data
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:

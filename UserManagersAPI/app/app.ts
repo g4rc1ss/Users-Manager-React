@@ -1,4 +1,5 @@
 import cors from "cors";
+import { configDotenv } from "dotenv";
 import express, { type NextFunction, type Request, type Response } from "express";
 import mongoose, { FilterQuery } from "mongoose";
 
@@ -6,10 +7,14 @@ import { User } from "./Consts";
 import { type IUserEntity } from "./IUserEntity";
 import { IUserRequest } from "./IUserRequest";
 
+configDotenv({ path: "./app/.env" });
 const app = express();
-app.listen(55434);
+app.listen(process.env.PORT);
 app.use(express.json());
 app.use(cors());
+
+// eslint-disable-next-line no-console
+console.log(process.env["AppName"]);
 
 // Tipos de middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -117,7 +122,8 @@ app.delete("/borrarUsuario", (request, response) => {
 });
 
 // conexion Base de Datos
-mongoose.connect("mongodb://localhost:27017/Proyecto3").catch((error) => {
+const mongoConnectionString = process.env["MONGO_URL_DATABASE_CONNECTION_STRING"] as string;
+mongoose.connect(mongoConnectionString).catch((error) => {
 	console.error("Error al conectar a MongoDB:", error);
 });
 
