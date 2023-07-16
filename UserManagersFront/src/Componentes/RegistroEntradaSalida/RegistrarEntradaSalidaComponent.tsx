@@ -2,6 +2,7 @@ import "./RegistrarEntradaSalidaComponent.css";
 
 import { ChangeEvent, useState } from "react";
 
+import { URL_API_NODE } from "../../config";
 import { IUserEntryRequest } from "../../Models/UserRequest";
 import { IUserResponse } from "../../Models/UserResponse";
 
@@ -55,7 +56,7 @@ function RegistroEntradaSalidaComponent() {
 	}
 
 	async function obtenerIdUsuario(dni: string): Promise<string> {
-		const response = await fetch(`http://localhost:55434/usuario?DNI=${dni}`);
+		const response = await fetch(`${URL_API_NODE}/usuario?DNI=${dni}`);
 		const user = (await response.json()) as IUserResponse[];
 
 		return user[0]._id;
@@ -66,7 +67,7 @@ function RegistroEntradaSalidaComponent() {
 			Id: idUsuario,
 			EstaEnOficina: esEntrada,
 		};
-		const response = await fetch(`http://localhost:55434/actualizarUsuario`, {
+		const response = await fetch(`${URL_API_NODE}/actualizarUsuario`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

@@ -2,6 +2,7 @@ import "./AñadirUsuarios.css";
 
 import { ChangeEvent, useState } from "react";
 
+import { URL_API_NODE } from "../../config";
 import { IUserResponse } from "../../Models/UserResponse";
 
 function AñadirUsuarios() {
@@ -54,7 +55,7 @@ function AñadirUsuarios() {
 		apellidoUsuario: string,
 		dniUsuario: string
 	): Promise<void> {
-		const response = await fetch(`http://localhost:55434/crearUsuario`, {
+		const response = await fetch(`${URL_API_NODE}/crearUsuario`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

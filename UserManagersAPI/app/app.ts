@@ -128,4 +128,4 @@ mongoose.connect(mongoConnectionString).catch((error) => {
 });
 
 // eslint-disable-next-line no-console
-console.log("Aplicacion en Express ejecutandose");
+console.log(`Aplicacion en Express ejecutandose en ${process.env.PORT}`);
