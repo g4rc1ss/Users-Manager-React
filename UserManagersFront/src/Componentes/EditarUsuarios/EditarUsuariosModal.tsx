@@ -3,6 +3,7 @@ import "./EditarUsuariosComponent.css";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
+import { URL_API_NODE } from "../../config";
 import { IUserCommandRequest } from "../../Models/UserRequest";
 import { IUserResponse } from "../../Models/UserResponse";
 
@@ -99,7 +100,7 @@ function EditarUsuariosModal(props: {
 			Apellido: apellido,
 			DNI: dni,
 		};
-		await fetch(`http://localhost:55434/actualizarUsuario`, {
+		await fetch(`${URL_API_NODE}/actualizarUsuario`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -110,7 +111,7 @@ function EditarUsuariosModal(props: {
 	}
 
 	async function obtenerDatosUsuario(idUsuario: string): Promise<IUserResponse> {
-		const response = await fetch(`http://localhost:55434/usuario?id=${idUsuario}`);
+		const response = await fetch(`${URL_API_NODE}/usuario?id=${idUsuario}`);
 		const user = (await response.json()) as IUserResponse[];
 
 		return user[0];

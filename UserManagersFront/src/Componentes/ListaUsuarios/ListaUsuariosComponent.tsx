@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 // https://icons.getbootstrap.com/
 import * as Icon from "react-bootstrap-icons";
 
+import { URL_API_NODE } from "../../config";
 import { IUserRequest } from "../../Models/UserRequest";
 import { IUserResponse } from "../../Models/UserResponse";
 import EditarUsuariosModal from "../EditarUsuarios/EditarUsuariosModal";
@@ -103,16 +104,15 @@ function ListaUsuariosComponent() {
 	);
 
 	async function getListaUsuarios(): Promise<IUserResponse[]> {
-		const response = fetch(`http://localhost:55434/listaUsuarios`).then((response) =>
-			response.json()
-		);
+		console.error(URL_API_NODE);
+		const response = fetch(`${URL_API_NODE}/listaUsuarios`).then((response) => response.json());
 
 		return (await response) as IUserResponse[];
 	}
 
 	async function borrarUsuario(idUsuario: string): Promise<void> {
 		const userRequest: IUserRequest = { Id: idUsuario };
-		await fetch(`http://localhost:55434/borrarUsuario`, {
+		await fetch(`${URL_API_NODE}/borrarUsuario`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",

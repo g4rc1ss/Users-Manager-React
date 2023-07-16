@@ -5,12 +5,15 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 
 import App from "./Componentes/App";
+import { LoadConfigurationByEnvironment } from "./config";
 import reportWebVitals from "./reportWebVitals";
+LoadConfigurationByEnvironment();
 
 const rootElement = document.getElementById("root");
 if (!(rootElement instanceof HTMLElement)) {
 	throw new Error("No hay elemento root en el index.html");
 }
+
 const root = ReactDOM.createRoot(rootElement);
 root.render(
 	<React.StrictMode>

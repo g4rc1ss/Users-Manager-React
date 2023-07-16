@@ -7,12 +7,10 @@ WORKDIR /app
 # Copia los archivos del proyecto e instala dependencias
 COPY . .
 
-RUN npm ci
-RUN npm run build
-
 RUN rm -rf node_modules
 
-RUN npm ci --omit=dev
+RUN npm ci
+RUN npm run build
 
 WORKDIR /app/out
 
