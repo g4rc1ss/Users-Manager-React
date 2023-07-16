@@ -7,6 +7,7 @@ import * as ReactDOM from "react-dom/client";
 import App from "./Componentes/App";
 import { LoadConfigurationByEnvironment } from "./config";
 import reportWebVitals from "./reportWebVitals";
+
 LoadConfigurationByEnvironment();
 
 const rootElement = document.getElementById("root");
